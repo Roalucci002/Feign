@@ -1,0 +1,49 @@
+{
+  "system": "live2d",
+  "model_name": "rei_default",
+  "model_path": "./models/avatar/rei_default",
+  "display": {
+    "width": 800,
+    "height": 600,
+    "show_idle_animation": true,
+    "idle_animation_interval_ms": 3000
+  },
+  "emotions": {
+    "neutral": {
+      "eyes": "normal",
+      "mouth": "normal",
+      "expression": "calm"
+    },
+    "happy": {
+      "eyes": "smile",
+      "mouth": "smile",
+      "expression": "warm"
+    },
+    "thinking": {
+      "eyes": "looking_away",
+      "mouth": "thinking",
+      "expression": "thoughtful"
+    },
+    "surprised": {
+      "eyes": "open",
+      "mouth": "open",
+      "expression": "surprised"
+    },
+    "sleepy": {
+      "eyes": "half_closed",
+      "mouth": "relaxed",
+      "expression": "drowsy"
+    },
+    "shy": {
+      "eyes": "looking_away",
+      "mouth": "smile_small",
+      "expression": "embarrassed"
+    }
+  },
+  "animations": {
+    "talking": true,
+    "lip_sync": true,
+    "head_movement": true,
+    "breathing": true
+  }
+}

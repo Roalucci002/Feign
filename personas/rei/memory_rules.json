@@ -1,0 +1,27 @@
+{
+  "auto_save_enabled": true,
+  "auto_save_interval_ms": 5000,
+  "memory_types": [
+    "personal_info",
+    "preferences",
+    "conversation_history",
+    "memories",
+    "ongoing_projects",
+    "relationship_state"
+  ],
+  "retention_policy": {
+    "conversation_history_days": 30,
+    "auto_cleanup": true,
+    "user_override": true
+  },
+  "privacy_rules": {
+    "ask_permission_for_sensitive_data": true,
+    "delete_on_request": true,
+    "no_forced_logging": true
+  },
+  "retrieval": {
+    "context_window": 10,
+    "relevance_threshold": 0.6,
+    "prioritize_recent": true
+  }
+}
