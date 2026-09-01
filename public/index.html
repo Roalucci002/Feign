@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>れいちゃん - AI Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            max-width: 900px;
+            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 600px;
+        }
+
+        .qr-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: white;
+        }
+
+        .qr-section h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .qr-section p {
+            font-size: 14px;
+            opacity: 0.9;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #qr-code {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .info-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="qr-section">
+            <h1>れいちゃん</h1>
+            <p>スマートフォンをんで接続してください</p>
+            <div id="qr-code"></div>
+        </div>
+
+        <div class="info-section">
+            <h2>接続情報</h2>
+            <div class="info-item">
+                <div class="info-label">Server Status</div>
+                <div class="info-value" id="server-status">設定中...</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">LLM</div>
+                <div class="info-value" id="llm-status">Ollama (mistral)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Voice</div>
+                <div class="info-value" id="voice-status">Piper (ja_JP)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Memory</div>
+                <div class="info-value" id="memory-status">SQLite</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Avatar</div>
+                <div class="info-value" id="avatar-status">Live2D (Ready)</div>
+            </div>
+            <div class="status">
+                <div class="status-dot"></div>
+                <span>Waiting for phone connection...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        async function loadQRCode() {
+            try {
+                const response = await fetch('/api/qrcode');
+                const data = await response.json();
+                
+                // Clear previous QR code
+                document.getElementById('qr-code').innerHTML = '';
+                
+                // Generate new QR code
+                new QRCode(document.getElementById('qr-code'), {
+                    text: data.connectionUrl,
+                    width: 250,
+                    height: 250,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (err) {
+                console.error('Failed to load QR code:', err);
+                document.getElementById('qr-code').innerHTML = '<p>QRコード読み込み失敗</p>';
+            }
+        }
+
+        // Load QR code on page load
+        window.addEventListener('load', loadQRCode);
+
+        // Connect to WebSocket
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'avatar_update') {
+                // Update avatar display
+                console.log('Avatar state:', data.state);
+            }
+        };
+
+        ws.onerror = (err) => {
+            console.error('WebSocket error:', err);
+            document.getElementById('server-status').textContent = 'Offline';
+        };
+
+        ws.onopen = () => {
+            document.getElementById('server-status').textContent = 'Online';
+        };
+    </script>
+</body>
+</html>
