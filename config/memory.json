@@ -1,0 +1,23 @@
+{
+  "backend": "sqlite",
+  "sqlite": {
+    "path": "./memory_db/rei.db",
+    "auto_vacuum": true
+  },
+  "memory_types": [
+    "personal_info",
+    "preferences",
+    "conversation_history",
+    "memories",
+    "ongoing_projects",
+    "relationship_state"
+  ],
+  "retention": {
+    "conversation_history_days": 30,
+    "auto_cleanup": true
+  },
+  "retrieval": {
+    "context_window": 10,
+    "relevance_threshold": 0.6
+  }
+}

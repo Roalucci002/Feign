@@ -1,0 +1,16 @@
+{
+  "provider": "searxng_local",
+  "searxng": {
+    "url": "http://localhost:8888",
+    "enabled": true
+  },
+  "fallback_providers": [],
+  "verification": {
+    "check_freshness": true,
+    "detect_contradictions": true,
+    "rate_sources": true,
+    "min_confidence": "MEDIUM"
+  },
+  "timeout_ms": 10000,
+  "max_results": 5
+}

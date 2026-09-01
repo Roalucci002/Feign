@@ -1,0 +1,39 @@
+{
+  "app_name": "Rei-chan AI Companion",
+  "version": "0.1.0",
+  "server": {
+    "host": "localhost",
+    "port": 3000,
+    "protocol": "http"
+  },
+  "default_persona": "rei",
+  "available_personas": [
+    "rei"
+  ],
+  "memory": {
+    "enabled": true,
+    "auto_save": true,
+    "auto_save_interval_ms": 5000
+  },
+  "search": {
+    "enabled": true,
+    "max_retries": 3,
+    "timeout_ms": 10000
+  },
+  "voice": {
+    "enabled": true,
+    "autoplay": true
+  },
+  "avatar": {
+    "enabled": true,
+    "show_animations": true,
+    "show_emotions": true
+  },
+  "features": {
+    "web_search": true,
+    "auto_memory": true,
+    "emotion_display": true,
+    "time_awareness": true,
+    "auto_conversation": false
+  }
+}

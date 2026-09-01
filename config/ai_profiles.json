@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "rei": {
+      "id": "rei",
+      "name": "れいちゃん",
+      "display_name": "Rei-chan",
+      "description": "Cool, composed shark-maid AI companion",
+      "persona_path": "personas/rei/character.txt",
+      "personality_path": "personas/rei/personality.json",
+      "voice_config": "personas/rei/voice.json",
+      "avatar_config": "personas/rei/avatar.json",
+      "memory_namespace": "rei",
+      "language": "ja_JP",
+      "active": true
+    }
+  }
+}

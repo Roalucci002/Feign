@@ -1,0 +1,18 @@
+{
+  "engine": "piper",
+  "piper": {
+    "executable": "piper",
+    "model": "ja_JP-kokoro-v1.0.onnx",
+    "language": "ja_JP",
+    "speaker": 1
+  },
+  "voice_params": {
+    "speed": 1.0,
+    "pitch": 0.0,
+    "volume": 1.0
+  },
+  "output": {
+    "format": "wav",
+    "sample_rate": 22050
+  }
+}
