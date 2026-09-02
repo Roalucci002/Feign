@@ -3,15 +3,35 @@
     "rei": {
       "id": "rei",
       "name": "れいちゃん",
-      "display_name": "Rei-chan",
-      "description": "Cool, composed shark-maid AI companion",
-      "persona_path": "personas/rei/character.txt",
-      "personality_path": "personas/rei/personality.json",
-      "voice_config": "personas/rei/voice.json",
-      "avatar_config": "personas/rei/avatar.json",
+      "description": "Local AI companion with cool, calm persona",
+      "enabled": true,
+      "persona_config": "./personas/rei/character.txt",
+      "personality_json": "./personas/rei/personality.json",
+      "memory_rules": "./personas/rei/memory_rules.json",
+      "voice_config": "./personas/rei/voice.json",
+      "avatar_config": "./personas/rei/avatar.json",
       "memory_namespace": "rei",
-      "language": "ja_JP",
-      "active": true
+      "system_rules": "./system/system_rules.txt",
+      "search_rules": "./system/search_rules.txt",
+      "memory_behavior_rules": "./system/memory_rules.txt",
+      "version": "1.0.0",
+      "created_at": "2026-09-02",
+      "last_updated": "2026-09-02",
+      "author": "Roalucci"
     }
+  },
+  "default_profile": "rei",
+  "profile_management": {
+    "allow_switching": true,
+    "switch_confirmation": false,
+    "preserve_memory_on_switch": true,
+    "preserve_emotion_on_switch": false,
+    "max_concurrent_profiles": 1
+  },
+  "profile_customization": {
+    "allow_user_edits": false,
+    "require_explicit_approval": true,
+    "backup_on_edit": true,
+    "version_control": true
   }
 }

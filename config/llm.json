@@ -1,15 +1,30 @@
 {
-  "provider": "ollama",
   "ollama": {
-    "url": "http://localhost:11434",
-    "model": "mistral",
-    "stream": true,
-    "temperature": 0.7,
-    "top_p": 0.9,
-    "context_length": 2048,
-    "timeout_ms": 30000
+    "name": "Ollama Local LLM",
+    "type": "local",
+    "base_url": "http://localhost:11434",
+    "models": {
+      "mistral": {
+        "name": "mistral:7b",
+        "vram_required_gb": 6,
+        "ram_required_gb": 4,
+        "recommended": true,
+        "language_support": ["en", "ja"],
+        "temperature_default": 0.7,
+        "context_length": 4096
+      }
+    },
+    "system_prompt_path": "./personas/rei/system_prompt.txt",
+    "fallback_on_error": true,
+    "max_retries": 3,
+    "retry_delay_seconds": 1
   },
-  "fallback": null,
-  "system_prompt_template": "persona/{persona_id}/character.txt",
-  "response_format": "natural_language"
+  "parameters": {
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "temperature": 0.7,
+    "top_k": 40,
+    "top_p": 0.9,
+    "repeat_penalty": 1.1
+  }
 }

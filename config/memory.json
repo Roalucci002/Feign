@@ -1,23 +1,44 @@
 {
-  "backend": "sqlite",
   "sqlite": {
-    "path": "./memory_db/rei.db",
-    "auto_vacuum": true
+    "name": "SQLite Memory Backend",
+    "type": "local",
+    "database_path": "./memory_db/rei_memory.db",
+    "auto_backup": true,
+    "backup_interval_hours": 24,
+    "backup_path": "./memory_db/backups"
   },
-  "memory_types": [
-    "personal_info",
-    "preferences",
-    "conversation_history",
-    "memories",
-    "ongoing_projects",
-    "relationship_state"
-  ],
-  "retention": {
-    "conversation_history_days": 30,
-    "auto_cleanup": true
+  "memory_types": {
+    "FACT": {"weight": 0.8, "retention": "permanent", "searchable": true, "category": "客観的情報"},
+    "PREFERENCE": {"weight": 0.9, "retention": "permanent", "searchable": true, "category": "ろあくんの好み"},
+    "MEMORY": {"weight": 0.7, "retention": "permanent", "searchable": true, "category": "過去の会話や出来事"},
+    "RELATIONSHIP": {"weight": 0.95, "retention": "permanent", "searchable": true, "category": "関係性の情報"},
+    "PROJECT": {"weight": 0.85, "retention": "permanent", "searchable": true, "category": "進行中のプロジェクト"},
+    "GAME": {"weight": 0.75, "retention": "permanent", "searchable": true, "category": "ゲーム関連情報"},
+    "CONVERSATION": {"weight": 0.5, "retention": "temporary", "searchable": true, "category": "会話履歴"},
+    "EMOTION": {"weight": 0.6, "retention": "temporary", "searchable": false, "category": "感情的な状態"},
+    "CONTEXT": {"weight": 0.7, "retention": "temporary", "searchable": false, "category": "会話の文脈"}
+  },
+  "embedding": {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "dimension": 384,
+    "device": "cuda"
   },
   "retrieval": {
-    "context_window": 10,
-    "relevance_threshold": 0.6
+    "top_k": 5,
+    "semantic_threshold": 0.5,
+    "recency_weight": 0.3,
+    "relevance_weight": 0.7,
+    "max_context_tokens": 2000
+  },
+  "pruning": {
+    "enabled": true,
+    "old_conversation_retention_days": 90,
+    "emotion_retention_hours": 24,
+    "auto_cleanup": true
+  },
+  "update_rules": {
+    "allow_user_override": true,
+    "require_confirmation": false,
+    "conflict_resolution": "newer_wins"
   }
 }

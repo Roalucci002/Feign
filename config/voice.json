@@ -1,18 +1,30 @@
 {
-  "engine": "piper",
   "piper": {
-    "executable": "piper",
-    "model": "ja_JP-kokoro-v1.0.onnx",
-    "language": "ja_JP",
-    "speaker": 1
-  },
-  "voice_params": {
-    "speed": 1.0,
-    "pitch": 0.0,
-    "volume": 1.0
-  },
-  "output": {
-    "format": "wav",
+    "name": "Piper TTS",
+    "type": "local",
+    "provider": "piper",
+    "models": {
+      "ja_JP-yumi-medium": {"language": "ja", "speaker": "yumi", "quality": "medium", "file_size_mb": 250},
+      "ja_JP-yumi-fast": {"language": "ja", "speaker": "yumi", "quality": "fast", "file_size_mb": 150},
+      "ja_JP-kokoro-medium": {"language": "ja", "speaker": "kokoro", "quality": "medium", "file_size_mb": 250}
+    },
+    "default_model": "ja_JP-yumi-medium",
+    "model_directory": "./models/voice/piper",
+    "audio_output_format": "wav",
     "sample_rate": 22050
-  }
+  },
+  "parameters": {
+    "speed": {"default": 1.0, "min": 0.5, "max": 2.0},
+    "pitch": {"default": 1.0, "min": 0.5, "max": 2.0},
+    "volume": {"default": 1.0, "min": 0.0, "max": 1.0},
+    "emotion_mapping": {
+      "neutral": {"speed": 1.0, "pitch": 1.0, "volume": 0.9},
+      "happy": {"speed": 1.1, "pitch": 1.1, "volume": 1.0},
+      "sad": {"speed": 0.85, "pitch": 0.9, "volume": 0.8},
+      "tired": {"speed": 0.9, "pitch": 0.95, "volume": 0.85},
+      "excited": {"speed": 1.2, "pitch": 1.15, "volume": 1.0},
+      "bored": {"speed": 0.8, "pitch": 0.95, "volume": 0.75}
+    }
+  },
+  "output": {"directory": "./voice_output", "cleanup_after_playback": true, "max_cache_size_mb": 100}
 }

@@ -1,39 +1,66 @@
 {
-  "app_name": "Rei-chan AI Companion",
-  "version": "0.1.0",
-  "server": {
+  "app": {
+    "name": "REI-CHAN AI COMPANION SYSTEM",
+    "version": "1.0.0",
+    "environment": "production",
     "host": "localhost",
     "port": 3000,
-    "protocol": "http"
+    "debug": false
   },
-  "default_persona": "rei",
-  "available_personas": [
-    "rei"
-  ],
-  "memory": {
-    "enabled": true,
-    "auto_save": true,
-    "auto_save_interval_ms": 5000
+  "llm": {
+    "provider": "ollama",
+    "model": "mistral",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "context_length": 4096,
+    "request_timeout": 30
   },
   "search": {
-    "enabled": true,
-    "max_retries": 3,
-    "timeout_ms": 10000
+    "provider": "searxng_local",
+    "base_url": "http://localhost:8888",
+    "timeout": 10,
+    "max_results": 10,
+    "language": "ja"
+  },
+  "memory": {
+    "backend": "sqlite",
+    "database_path": "./memory_db/rei_memory.db",
+    "max_memories": 10000,
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "semantic_threshold": 0.5
   },
   "voice": {
-    "enabled": true,
-    "autoplay": true
+    "provider": "piper",
+    "model": "ja_JP-yumi-medium",
+    "sample_rate": 22050,
+    "speed": 1.0,
+    "pitch": 1.0,
+    "language": "ja"
   },
   "avatar": {
-    "enabled": true,
-    "show_animations": true,
-    "show_emotions": true
+    "system": "live2d",
+    "model_path": "./models/avatar/rei",
+    "idle_blink_interval": 3,
+    "idle_animation": true,
+    "lip_sync_enabled": true
   },
-  "features": {
-    "web_search": true,
-    "auto_memory": true,
-    "emotion_display": true,
-    "time_awareness": true,
-    "auto_conversation": false
+  "ai_profiles": {
+    "default": "rei",
+    "available": ["rei"],
+    "namespace_path": "./personas"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "json",
+    "output_path": "./logs/rei_system.log",
+    "max_size_mb": 100,
+    "backup_count": 5
+  },
+  "phone_connection": {
+    "websocket_enabled": true,
+    "qr_code_display": true,
+    "session_timeout": 3600,
+    "max_connections": 5
   }
 }

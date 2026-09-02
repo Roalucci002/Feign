@@ -1,16 +1,41 @@
 {
-  "provider": "searxng_local",
-  "searxng": {
-    "url": "http://localhost:8888",
-    "enabled": true
+  "searxng_local": {
+    "name": "SearXNG Local Search",
+    "type": "local",
+    "base_url": "http://localhost:8888",
+    "enabled": true,
+    "timeout": 10,
+    "max_results": 10,
+    "language": "ja",
+    "categories": {
+      "general": true,
+      "news": true,
+      "social media": false,
+      "images": true
+    },
+    "engines": ["google", "bing", "duckduckgo", "qwant"]
   },
-  "fallback_providers": [],
   "verification": {
+    "enabled": true,
     "check_freshness": true,
+    "freshness_threshold_days": 30,
     "detect_contradictions": true,
-    "rate_sources": true,
-    "min_confidence": "MEDIUM"
+    "source_credibility_scoring": true,
+    "confidence_levels": {
+      "HIGH": 0.9,
+      "MEDIUM": 0.6,
+      "LOW": 0.3,
+      "CONFLICTED": 0.0
+    }
   },
-  "timeout_ms": 10000,
-  "max_results": 5
+  "source_priority": [
+    "official_site",
+    "official_documentation",
+    "official_news",
+    "trusted_wiki",
+    "trusted_forums",
+    "community_reports",
+    "social_media",
+    "blogs"
+  ]
 }

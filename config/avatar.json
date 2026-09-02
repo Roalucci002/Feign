@@ -1,20 +1,37 @@
 {
-  "system": "live2d",
   "live2d": {
-    "model_path": "./models/avatar/rei_default",
-    "enabled": true
+    "name": "Live2D Avatar System",
+    "type": "2d",
+    "model_path": "./models/avatar/rei",
+    "model_name": "rei_avatar.model3.json",
+    "width": 1920,
+    "height": 1080,
+    "render_backend": "webgl"
   },
-  "display": {
-    "width": 800,
-    "height": 600,
-    "idle_animation": true
+  "idle_behavior": {
+    "blink": {"enabled": true, "interval_min_seconds": 2, "interval_max_seconds": 5, "duration_ms": 200},
+    "animation": {"enabled": true, "idle_animations": ["breathing", "slight_head_tilt", "shoulder_movement"], "cycle_interval_seconds": 8},
+    "eye_movement": {"enabled": true, "look_around_interval": 5, "smoothness": 0.8}
   },
-  "emotions": {
-    "happy": { "eyes": "smile", "mouth": "smile" },
-    "neutral": { "eyes": "normal", "mouth": "normal" },
-    "sad": { "eyes": "sad", "mouth": "sad" },
-    "surprised": { "eyes": "open", "mouth": "open" },
-    "thinking": { "eyes": "looking_away", "mouth": "thinking" },
-    "sleepy": { "eyes": "closed", "mouth": "normal" }
-  }
+  "expressions": {
+    "neutral": {"brow_angle": 0, "eye_openness": 1.0, "mouth_shape": 0.0, "head_tilt": 0, "animation": "neutral_idle"},
+    "happy": {"brow_angle": 15, "eye_openness": 0.9, "mouth_shape": 0.7, "head_tilt": 5, "animation": "smile"},
+    "sad": {"brow_angle": -20, "eye_openness": 0.7, "mouth_shape": -0.5, "head_tilt": -5, "animation": "sad_breath"},
+    "tired": {"brow_angle": -10, "eye_openness": 0.4, "mouth_shape": 0.2, "head_tilt": 8, "animation": "sleepy"},
+    "surprised": {"brow_angle": 30, "eye_openness": 1.0, "mouth_shape": 0.8, "head_tilt": -8, "animation": "surprise"},
+    "embarrassed": {"brow_angle": 0, "eye_openness": 0.6, "mouth_shape": 0.3, "head_tilt": 20, "animation": "look_away"}
+  },
+  "lip_sync": {
+    "enabled": true,
+    "method": "viseme_mapping",
+    "audio_analysis": {"mfcc_features": true, "frequency_bands": 13, "window_size_ms": 50},
+    "viseme_set": ["A", "E", "I", "O", "U", "M", "B", "P", "F", "V", "W", "L", "D", "T", "N", "S", "Z", "SH", "CH", "J", "K", "G", "H", "Y", "R"],
+    "smoothing": 0.7,
+    "latency_compensation_ms": 100
+  },
+  "physics": {
+    "head_physics": {"enabled": true, "damping": 0.95, "gravity": 0.02},
+    "hair_physics": {"enabled": true, "wind_effect": true}
+  },
+  "display": {"background": "transparent", "scale": 1.0, "position_x": "center", "position_y": "center", "viewport": "fullscreen"}
 }
