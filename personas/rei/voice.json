@@ -1,17 +1,15 @@
 {
-  "engine": "piper",
-  "language": "ja_JP",
-  "voice_model": "ja_JP-kokoro-v1.0.onnx",
-  "speaker_id": 1,
-  "voice_params": {
-    "speed": 0.95,
-    "pitch": 0.0,
-    "volume": 1.0
-  },
-  "character_traits": {
-    "calm": true,
-    "composed": true,
-    "slightly_sleepy": true,
-    "female": true
+  "voice": "ja_JP-yumi-medium",
+  "speed": 1.0,
+  "pitch": 1.0,
+  "volume": 0.9,
+  "emotion_affects_voice": true,
+  "emotion_voice_mapping": {
+    "neutral": {"speed": 1.0, "pitch": 1.0, "volume": 0.9},
+    "happy": {"speed": 1.1, "pitch": 1.1, "volume": 1.0},
+    "sad": {"speed": 0.85, "pitch": 0.9, "volume": 0.8},
+    "tired": {"speed": 0.9, "pitch": 0.95, "volume": 0.85},
+    "excited": {"speed": 1.2, "pitch": 1.15, "volume": 1.0},
+    "bored": {"speed": 0.8, "pitch": 0.95, "volume": 0.75}
   }
 }

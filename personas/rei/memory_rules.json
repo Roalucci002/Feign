@@ -1,27 +1,41 @@
 {
-  "auto_save_enabled": true,
-  "auto_save_interval_ms": 5000,
-  "memory_types": [
-    "personal_info",
-    "preferences",
-    "conversation_history",
-    "memories",
-    "ongoing_projects",
-    "relationship_state"
+  "memory_update_triggers": [
+    "explicit_user_request",
+    "repeated_information",
+    "important_events",
+    "user_preferences",
+    "relationship_changes",
+    "game_updates",
+    "project_progress"
   ],
-  "retention_policy": {
-    "conversation_history_days": 30,
-    "auto_cleanup": true,
-    "user_override": true
+  "auto_memory_extraction": {
+    "enabled": true,
+    "categories": [
+      "PREFERENCE",
+      "GAME",
+      "PROJECT",
+      "RELATIONSHIP",
+      "FACT"
+    ],
+    "confirmation_required": false,
+    "min_confidence": 0.7
   },
-  "privacy_rules": {
-    "ask_permission_for_sensitive_data": true,
-    "delete_on_request": true,
-    "no_forced_logging": true
+  "memory_deletion": {
+    "allow_user_request": true,
+    "instant_deletion": true,
+    "backup_before_delete": false,
+    "log_deletions": true
   },
-  "retrieval": {
-    "context_window": 10,
-    "relevance_threshold": 0.6,
-    "prioritize_recent": true
+  "conflicting_information": {
+    "policy": "newer_overrides_older",
+    "require_confirmation": false,
+    "log_conflicts": true,
+    "notify_user": false
+  },
+  "privacy": {
+    "sensitive_data_excluded": true,
+    "pii_handling": "exclude",
+    "external_storage": false,
+    "encryption": false
   }
 }

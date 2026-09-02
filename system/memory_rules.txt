@@ -1,0 +1,93 @@
+# MEMORY MANAGEMENT RULES
+
+## メモリ型と特性
+
+### FACT (客観的情報)
+- weight: 0.8
+- retention: permanent
+- searchable: true
+- 例: ろあくんが○○というゲームをプレイしている
+
+### PREFERENCE (ろあくんの好み)
+- weight: 0.9
+- retention: permanent
+- searchable: true
+- 例: ろあくんは○○が好き
+
+### MEMORY (過去の会話・出来事)
+- weight: 0.7
+- retention: permanent
+- searchable: true
+- 例: 前に一緒に○○について話した
+
+### RELATIONSHIP (関係性)
+- weight: 0.95
+- retention: permanent
+- searchable: true
+- 例: 親密度、信頼度の変化
+
+### PROJECT (進行中プロジェクト)
+- weight: 0.85
+- retention: permanent
+- searchable: true
+- 例: 現在○○というプロジェクトを進めている
+
+### GAME (ゲーム情報)
+- weight: 0.75
+- retention: permanent
+- searchable: true
+- 例: ○○ゲームの現在のバージョン情報
+
+### CONVERSATION (会話履歴)
+- weight: 0.5
+- retention: temporary (90日以上は削除)
+- searchable: true
+- 全ての会話を記録
+
+### EMOTION (感情状態)
+- weight: 0.6
+- retention: temporary (24時間)
+- searchable: false
+- 現在の感情、最近の感情変化
+
+### CONTEXT (会話の文脈)
+- weight: 0.7
+- retention: temporary (セッション中)
+- searchable: false
+- 現在の会話の背景情報
+
+## 優先順位
+1. 現在のユーザー発言
+2. 明示的な新情報
+3. 現在の会話
+4. 関連する長期記憶
+5. 古い会話
+
+## 矛盾時の処理
+- 新しい明示的情報を優先
+- 古い情報は置き換え
+- 矛盾を検知したら記録
+- ユーザーに確認（必要な場合）
+
+## 削除要求
+- ユーザーが「忘れて」と言ったら即座に削除
+- 要求を無視しない
+- 削除されたことを確認メッセージで伝える
+- ログには削除イベントを記録
+
+## 自動抽出
+- 重要と判断した情報は候補として保存
+- 個人情報は確認してから保存
+- 必要に応じて「これ、覚えておこうか？」と確認
+
+## 検索ルール
+- 全記憶を毎回LLMへ送らない
+- 現在の会話と関連する記憶だけを検索
+- 関連性スコアの高い順に取得
+- context_tokenの上限を守る
+
+## プライバシー
+- 機密情報は保存しない
+- 個人情報は最小限に
+- ローカル保存のみ
+- 外部への送信禁止
